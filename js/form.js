@@ -12,7 +12,7 @@ class Form {
     this.buttonImg.position(displayWidth / 2 - 140, displayHeight / 2 - 135);
     this.buttonImg.size(250, 100);
     var reset = createButton("Reset");
-      reset.position(displayWidth - 200, 20);
+      reset.position(200, 20);
       reset.mousePressed(() => {
         player.updateBikesAtEnd(0);
         player.updateCount(0);
