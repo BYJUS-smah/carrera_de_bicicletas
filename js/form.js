@@ -6,11 +6,10 @@ class Form {
     this.greetings2 = createElement("h2");
   }
   display() {
-    this.input.position(displayWidth / 2 - 115, displayHeight / 2 - 200);
+    this.input.position(displayWidth / 2 - 90, displayHeight / 2 - 150);
     this.input.size(180, 30);
-    this.input.class("customInput");
-    this.buttonImg.position(displayWidth / 2 - 140, displayHeight / 2 - 135);
-    this.buttonImg.size(250, 100);
+    this.buttonImg.position(displayWidth / 2 +50 , displayHeight / 2 - 100);
+    this.buttonImg.size(150, 50);
     var reset = createButton("Reset");
       reset.position(200, 20);
       reset.mousePressed(() => {
@@ -23,23 +22,18 @@ class Form {
         window.location.reload();
       });
     
-    this.buttonImg.mousePressed(() => {
-      this.input.hide();
-      this.buttonImg.hide();
-      player.name = this.input.value();
-      playerCount += 1;
-      player.index = playerCount;
-      // player.update();
-      player.addPlayer();
-      player.updateCount(playerCount);
-      //player.getDistance();
-      //player.getRotation();
-
-      this.greetings.html("Hello " + player.name);
-      this.greetings.class("greeting");
-      this.greetings.position(displayWidth / 2 - 100, displayHeight / 2 - 200);
-      track1.play();
-    });
+      this.buttonImg.mousePressed(() => {
+        reset.hide();
+        this.input.hide();
+        this.buttonImg.hide();
+        player.name = this.input.value();
+        playerCount += 1;
+        player.updateCount(playerCount);
+        player.index = playerCount;
+        player.addPlayer();      
+        this.greetings.html("Hello " + player.name +", Let us wait for others to join...");
+        this.greetings.position(displayWidth / 2 - 200, displayHeight / 2 - 150);
+      });
   }
 
   hide() {
