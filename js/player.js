@@ -23,9 +23,9 @@ class Player {
     if (this.index === 1) {
       this.positionX = width / 2 - 320;
     } else if (this.index === 2) {
-      this.positionX = width / 2 - 100;
+      this.positionX = width / 2 - 150;
     } else if (this.index === 3) {
-      this.positionX = width / 2 + 100;
+      this.positionX = width / 2 + 150;
     } else if (this.index === 4) {
       this.positionX = width / 2 + 320;
     }
@@ -49,7 +49,7 @@ class Player {
 
   update() {
     var playerindex = "players/player" + this.index;
-    database.ref(playerindex).update({
+    database.ref(playerindex).set({
       name: this.name,
       positionX: this.positionX,
       positionY: this.positionY,
@@ -58,17 +58,8 @@ class Player {
       rotation: this.rotation,
       blast: this.blast
     });
-    console.log("blast "+this.blast);
   }
 
-  // updateBlast() {
-  //   var playerindex = "players/player" + this.index;
-  //   database.ref(playerindex).update({
-      
-  //     blast: this.blast
-  //   });
-  //   console.log("blast "+this.blast);
-  // }
   // getRotation() {
   //   var playerRotationRef = database.ref("players/player" + this.index);
   //   playerRotationRef.on("value", data => {
