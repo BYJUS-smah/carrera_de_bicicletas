@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    // this.leftKeyActive = false;
-    // this.blast = false;
+     this.leftKeyActive = false;
+     this.blast = false;
   }
 
   getState() {
@@ -21,13 +21,8 @@ class Game {
       form = new Form();
       form.display();
       player = new Player();
-      // var playerCountref = await database.ref("playerCount").once("value");
-
-      // if (playerCountref.exists()) {
-      //   playerCount = playerCountref.val();
-        player.getCount();
-      // }
-    //}
+          player.getCount();
+    
     bike1 = createSprite(100, 200);
     bike2 = createSprite(250, 200);
     bike3 = createSprite(400, 200);
@@ -36,7 +31,14 @@ class Game {
     bike2.scale = 0.1;
     bike3.scale = 0.1;
     bike4.scale = 0.1;
-
+    // bike1.debug =true;
+    // bike2.debug =true;
+    // bike3.debug =true;
+    // bike4.debug =true;
+    bike1.setCollider("circle",0,0,200);
+    bike2.setCollider("circle",0,0,200);
+    bike3.setCollider("circle",0,0,200);
+    bike4.setCollider("circle",0,0,200);
     bikes = [bike1, bike2, bike3, bike4];
 
     bike1.addImage(bike1img);
@@ -50,11 +52,6 @@ class Game {
 
     bike4.addImage(bike4img);
     bike4.addImage("blast", blastImage);
-    
-        bike1.setCollider("circle",0,0,20);
-    bike2.setCollider("circle",0,0,20);
-    bike3.setCollider("circle",0,0,20);
-    bike4.setCollider("circle",0,0,20);
   }
 
   play() {
@@ -77,11 +74,6 @@ class Game {
         bikes[index - 1].x = x;
         bikes[index - 1].y = y;
 
-        if (player.blast && player.index === index) {
-          bikes[index - 1].changeImage("blast");
-          bikes[index - 1].scale = 0.3;
-        }
-
         if (keyIsDown(UP_ARROW) && !player.blast) {
           bikes[index - 1].rotation = allplayers[p].rotation;
         }
@@ -93,6 +85,78 @@ class Game {
         if (keyIsDown(RIGHT_ARROW) && !player.blast) {
           bikes[index - 1].rotation = allplayers[p].rotation;
         }
+        if (index === 1) {
+          if (
+            bikes[index - 1].collide(bikes[1]) ||
+            bikes[index - 1].collide(bikes[2]) ||
+            bikes[index - 1].collide(bikes[3])
+          ) {
+            if (this.leftKeyActive) {
+                      player.positionX += 100;
+                    } else {
+                      player.positionX -= 100;
+                    }
+            allplayers[p].blast = true;
+            console.log(allplayers[p].blast);
+            bikes[index - 1].changeImage("blast");
+            bikes[index - 1].scale = 0.3;
+            player.update();
+          }
+        }
+        if (index === 2) {
+          if (
+            bikes[index - 1].collide(bikes[0]) ||
+            bikes[index - 1].collide(bikes[2]) ||
+            bikes[index - 1].collide(bikes[3])
+          ) {
+            if (this.leftKeyActive) {
+                      player.positionX += 100;
+                    } else {
+                      player.positionX -= 100;
+                    }
+            allplayers[p].blast = true;
+            bikes[index - 1].changeImage("blast");
+            bikes[index - 1].scale = 0.3;
+            player.update();
+            
+          }
+        }
+    
+        if (index === 3) {
+          if (
+            bikes[index - 1].collide(bikes[0]) ||
+            bikes[index - 1].collide(bikes[1]) ||
+            bikes[index - 1].collide(bikes[3])
+          ) {
+            if (this.leftKeyActive) {
+                      player.positionX += 100;
+                    } else {
+                      player.positionX -= 100;
+                    }
+            allplayers[p].blast = true;
+            bikes[index - 1].changeImage("blast");
+            bikes[index - 1].scale = 0.3;
+            player.update();
+          }
+        }
+    
+        if (index === 4) {
+          if (
+            bikes[index - 1].collide(bikes[0]) ||
+            bikes[index - 1].collide(bikes[1]) ||
+            bikes[index - 1].collide(bikes[2])
+          ) {
+            if (this.leftKeyActive) {
+                      player.positionX += 100;
+                    } else {
+                      player.positionX -= 100;
+                    }
+            allplayers[p].blast = true;
+            bikes[index - 1].changeImage("blast");
+            bikes[index - 1].scale = 0.3;
+            player.update();
+          }
+        }
 
         if (index === player.index) {
           fill("red");
@@ -100,10 +164,13 @@ class Game {
           bikes[index - 1].shapeColor = "red";
 
           camera.position.x = width / 2;
-          camera.position.y = bikes[index - 1].y;
+         camera.position.y = bikes[index - 1].y;
+      
+      
+          
         }
 
-        this.handleCarCollision(index);
+        //this.handleCarCollision(index);
       }
     }
 
@@ -137,71 +204,71 @@ class Game {
     drawSprites();
   }
 
-  handleCarCollision(index) {
-    if (index === 1) {
-      if (
-        bikes[index - 1].collide(bikes[1]) ||
-        bikes[index - 1].collide(bikes[2]) ||
-        bikes[index - 1].collide(bikes[3])
-      ) {
-        // if (this.leftKeyActive) {
-        //   player.positionX += 100;
-        // } else {
-        //   player.positionX -= 100;
-        // }
-        player.blast = true;
-        player.update();
-      }
-    }
+  // // handleCarCollision(index) {
+  // //   if (index === 1) {
+  // //     if (
+  // //       bikes[index - 1].collide(bikes[1]) ||
+  // //       bikes[index - 1].collide(bikes[2]) ||
+  // //       bikes[index - 1].collide(bikes[3])
+  // //     ) {
+  // //       // if (this.leftKeyActive) {
+  // //       //   player.positionX += 100;
+  // //       // } else {
+  // //       //   player.positionX -= 100;
+  // //       // }
+  // //       player.blast = true;
+  // //       player.update();
+  // //     }
+  // //   }
 
-    if (index === 2) {
-      if (
-        bikes[index - 1].collide(bikes[0]) ||
-        bikes[index - 1].collide(bikes[2]) ||
-        bikes[index - 1].collide(bikes[3])
-      ) {
-        // if (this.leftKeyActive) {
-        //   player.positionX += 100;
-        // } else {
-        //   player.positionX -= 100;
-        // }
-        player.blast = true;
-        player.update();
-      }
-    }
+  // //   if (index === 2) {
+  // //     if (
+  // //       bikes[index - 1].collide(bikes[0]) ||
+  // //       bikes[index - 1].collide(bikes[2]) ||
+  // //       bikes[index - 1].collide(bikes[3])
+  // //     ) {
+  // //       // if (this.leftKeyActive) {
+  // //       //   player.positionX += 100;
+  // //       // } else {
+  // //       //   player.positionX -= 100;
+  // //       // }
+  // //       player.blast = true;
+  // //       player.update();
+  // //     }
+  // //   }
 
-    if (index === 3) {
-      if (
-        bikes[index - 1].collide(bikes[0]) ||
-        bikes[index - 1].collide(bikes[1]) ||
-        bikes[index - 1].collide(bikes[3])
-      ) {
-        // if (this.leftKeyActive) {
-        //   player.positionX += 100;
-        // } else {
-        //   player.positionX -= 100;
-        // }
-        player.blast = true;
-        player.update();
-      }
-    }
+  // //   if (index === 3) {
+  // //     if (
+  // //       bikes[index - 1].collide(bikes[0]) ||
+  // //       bikes[index - 1].collide(bikes[1]) ||
+  // //       bikes[index - 1].collide(bikes[3])
+  // //     ) {
+  // //       // if (this.leftKeyActive) {
+  // //       //   player.positionX += 100;
+  // //       // } else {
+  // //       //   player.positionX -= 100;
+  // //       // }
+  // //       player.blast = true;
+  // //       player.update();
+  // //     }
+  // //   }
 
-    if (index === 4) {
-      if (
-        bikes[index - 1].collide(bikes[0]) ||
-        bikes[index - 1].collide(bikes[0]) ||
-        bikes[index - 1].collide(bikes[2])
-      ) {
-        // if (this.leftKeyActive) {
-        //   player.positionX += 100;
-        // } else {
-        //   player.positionX -= 100;
-        // }
-        player.blast = true;
-        player.update();
-      }
-    }
-  }
+  // //   if (index === 4) {
+  // //     if (
+  // //       bikes[index - 1].collide(bikes[0]) ||
+  // //       bikes[index - 1].collide(bikes[0]) ||
+  // //       bikes[index - 1].collide(bikes[2])
+  // //     ) {
+  // //       // if (this.leftKeyActive) {
+  // //       //   player.positionX += 100;
+  // //       // } else {
+  // //       //   player.positionX -= 100;
+  // //       // }
+  // //       player.blast = true;
+  // //       player.update();
+  // //     }
+  // //   }
+  // }
 
   end() {
     form.end();

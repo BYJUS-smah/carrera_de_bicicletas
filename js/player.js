@@ -49,7 +49,7 @@ class Player {
 
   update() {
     var playerindex = "players/player" + this.index;
-    database.ref(playerindex).set({
+    database.ref(playerindex).update({
       name: this.name,
       positionX: this.positionX,
       positionY: this.positionY,
@@ -58,8 +58,17 @@ class Player {
       rotation: this.rotation,
       blast: this.blast
     });
+    console.log("blast "+this.blast);
   }
 
+  // updateBlast() {
+  //   var playerindex = "players/player" + this.index;
+  //   database.ref(playerindex).update({
+      
+  //     blast: this.blast
+  //   });
+  //   console.log("blast "+this.blast);
+  // }
   // getRotation() {
   //   var playerRotationRef = database.ref("players/player" + this.index);
   //   playerRotationRef.on("value", data => {
