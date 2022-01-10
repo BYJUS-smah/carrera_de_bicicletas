@@ -28,11 +28,14 @@ class Form {
         this.buttonImg.hide();
         player.name = this.input.value();
         playerCount += 1;
+        player.index = playerCount
+        player.addPlayer();      
         player.updateCount(playerCount);
         player.index = playerCount;
-        player.addPlayer();      
+        
         this.greetings.html("Hello " + player.name +", Let us wait for others to join...");
         this.greetings.position(displayWidth / 2 - 200, displayHeight / 2 - 150);
+        track1.play();
       });
   }
 
