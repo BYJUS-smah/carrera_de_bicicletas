@@ -50,6 +50,11 @@ class Game {
 
     bike4.addImage(bike4img);
     bike4.addImage("blast", blastImage);
+    
+        bike1.setCollider("circle",0,0,20);
+    bike2.setCollider("circle",0,0,20);
+    bike3.setCollider("circle",0,0,20);
+    bike4.setCollider("circle",0,0,20);
   }
 
   play() {
