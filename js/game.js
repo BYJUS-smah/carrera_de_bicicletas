@@ -1,8 +1,5 @@
 class Game {
-  constructor() {
-    this.leftKeyActive = false;
-    // this.blast = false;
-  }
+  constructor() {}
 
   getState() {
     var gameStateref = database.ref("gameState");
@@ -17,17 +14,11 @@ class Game {
   }
 
   async start() {
-    //if (gameState === 0) {
-      form = new Form();
-      form.display();
-      player = new Player();
-      // var playerCountref = await database.ref("playerCount").once("value");
+    form = new Form();
+    form.display();
+    player = new Player();
+    player.getCount();
 
-      // if (playerCountref.exists()) {
-      //   playerCount = playerCountref.val();
-        player.getCount();
-      // }
-    //}
     bike1 = createSprite(100, 200);
     bike2 = createSprite(250, 200);
     bike3 = createSprite(400, 200);
@@ -36,11 +27,14 @@ class Game {
     bike2.scale = 0.1;
     bike3.scale = 0.1;
     bike4.scale = 0.1;
-
-    bike1.setCollider("circle",0,0,200);
-    bike2.setCollider("circle",0,0,200);
-    bike3.setCollider("circle",0,0,200);
-    bike4.setCollider("circle",0,0,200);
+    bike1.setCollider("circle", 0, 0, 150);
+    bike2.setCollider("circle", 0, 0, 150);
+    bike3.setCollider("circle", 0, 0, 150);
+    bike4.setCollider("circle", 0, 0, 150);
+    bike1.debug = true;
+    bike2.debug = true;
+    bike3.debug = true;
+    bike4.debug = true;
 
     bikes = [bike1, bike2, bike3, bike4];
 
@@ -58,15 +52,14 @@ class Game {
   }
 
   play() {
-    //track1.stop();
     form.hide();
     Player.getPlayersInfo();
     player.getBikesAtEnd();
 
     if (allplayers !== undefined) {
-      //track2.play();
       background("#263238");
-      image(trackimg, 0, -displayHeight * 4, displayWidth, displayHeight * 5);
+      image(trackimg, 0, -height * 4, width, height * 5);
+
       var index = 0;
       var x = 215;
       var y;
@@ -77,7 +70,7 @@ class Game {
         bikes[index - 1].x = x;
         bikes[index - 1].y = y;
 
-        if (player.blast && player.index === index) {
+        if (allplayers[p].blast) {
           bikes[index - 1].changeImage("blast");
           bikes[index - 1].scale = 0.3;
         }
@@ -103,7 +96,7 @@ class Game {
           camera.position.y = bikes[index - 1].y;
         }
 
-        this.handleCarCollision(index);
+        this.handleBikeCollision(player.index);
       }
     }
 
@@ -115,88 +108,71 @@ class Game {
     }
 
     if (keyIsDown(LEFT_ARROW) && !player.blast) {
-      this.leftKeyActive = true;
       player.positionX -= 5;
       player.rotation = -25;
       player.update();
     }
 
     if (keyIsDown(RIGHT_ARROW) && !player.blast) {
-      this.leftKeyActive = false;
       player.positionX += 5;
       player.rotation = 25;
       player.update();
     }
 
-    if (player.distance > 4970) {
+    if (player.distance > 2450) {
       gameState = 2;
       player.rank += 1;
       player.updateBikesAtEnd(player.rank);
-      player.update();
     }
     drawSprites();
   }
 
-  handleCarCollision(index) {
-    if (index === 1) {
+  handleBikeCollision(index) {
+    if (index - 1 === 0) {
+      console.log("Player 1");
       if (
         bikes[index - 1].collide(bikes[1]) ||
         bikes[index - 1].collide(bikes[2]) ||
         bikes[index - 1].collide(bikes[3])
       ) {
-        if (this.leftKeyActive) {
-          player.positionX += 100;
-        } else {
-          player.positionX -= 100;
-        }
         player.blast = true;
         player.update();
       }
     }
 
-    if (index === 2) {
+    if (index - 1 === 1) {
+      console.log("Player 2");
+
       if (
         bikes[index - 1].collide(bikes[0]) ||
         bikes[index - 1].collide(bikes[2]) ||
         bikes[index - 1].collide(bikes[3])
       ) {
-        if (this.leftKeyActive) {
-          player.positionX += 100;
-        } else {
-          player.positionX -= 100;
-        }
         player.blast = true;
         player.update();
       }
     }
 
-    if (index === 3) {
+    if (index - 1 === 2) {
+      console.log("Player 3");
+
       if (
         bikes[index - 1].collide(bikes[0]) ||
         bikes[index - 1].collide(bikes[1]) ||
         bikes[index - 1].collide(bikes[3])
       ) {
-        if (this.leftKeyActive) {
-          player.positionX += 100;
-        } else {
-          player.positionX -= 100;
-        }
         player.blast = true;
         player.update();
       }
     }
 
-    if (index === 4) {
+    if (index - 1 === 3) {
+      console.log("Player 4");
       if (
         bikes[index - 1].collide(bikes[0]) ||
-        bikes[index - 1].collide(bikes[0]) ||
+        bikes[index - 1].collide(bikes[1]) ||
         bikes[index - 1].collide(bikes[2])
       ) {
-        if (this.leftKeyActive) {
-          player.positionX += 100;
-        } else {
-          player.positionX -= 100;
-        }
         player.blast = true;
         player.update();
       }

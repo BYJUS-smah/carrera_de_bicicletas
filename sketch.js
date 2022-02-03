@@ -3,9 +3,8 @@ var form,
   game,
   player,
   playerCount = 0,
-  bgimg,
-  track1,
-  track2;
+  bgimg;
+
 var gameState = 0;
 var allplayers, blastImage;
 var bike1,
@@ -22,15 +21,12 @@ function preload() {
   bike4img = loadImage("images/bike4.png");
   trackimg = loadImage("images/track.png");
   end_bg = loadImage("images/leaderboard1.png");
-  track1 = loadSound("tracks/start.mp3");
-  track2 = loadSound("tracks/play.mp3");
   blastImage = loadImage("images/blast.png");
 }
 
 function setup() {
   database = firebase.database();
-  canvas = createCanvas(windowWidth, windowHeight);
-
+  canvas = createCanvas(950, 470);
   game = new Game();
   game.getState();
   game.start();
@@ -55,8 +51,4 @@ function draw() {
     background(end_bg);
     game.end();
   }
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
 }
