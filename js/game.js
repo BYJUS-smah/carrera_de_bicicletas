@@ -129,7 +129,7 @@ class Game {
 
   handleBikeCollision(index) {
     if (index - 1 === 0) {
-      console.log("Player 1");
+      console.log("Jugador 1");
       if (
         bikes[index - 1].collide(bikes[1]) ||
         bikes[index - 1].collide(bikes[2]) ||
@@ -141,7 +141,7 @@ class Game {
     }
 
     if (index - 1 === 1) {
-      console.log("Player 2");
+      console.log("Jugador 2");
 
       if (
         bikes[index - 1].collide(bikes[0]) ||
@@ -154,7 +154,7 @@ class Game {
     }
 
     if (index - 1 === 2) {
-      console.log("Player 3");
+      console.log("Jugador 3");
 
       if (
         bikes[index - 1].collide(bikes[0]) ||
@@ -167,7 +167,7 @@ class Game {
     }
 
     if (index - 1 === 3) {
-      console.log("Player 4");
+      console.log("Jugador 4");
       if (
         bikes[index - 1].collide(bikes[0]) ||
         bikes[index - 1].collide(bikes[1]) ||

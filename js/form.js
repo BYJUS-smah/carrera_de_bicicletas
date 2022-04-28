@@ -1,7 +1,7 @@
 class Form {
   constructor() {
     this.greetings = createElement("h2");
-    this.input = createInput("name");
+    this.input = createInput("nombre");
     this.buttonImg = createImg("./images/start.png");
     this.greetings2 = createElement("h2");
   }
@@ -11,7 +11,7 @@ class Form {
     this.buttonImg.position(475 + 50, 250);
     this.buttonImg.size(150, 50);
 
-    var reset = createButton("Reset");
+    var reset = createButton("Reiniciar");
     reset.position(750, 20);
     reset.mousePressed(() => {
       player.updateBikesAtEnd(0);
@@ -33,7 +33,7 @@ class Form {
       player.index = playerCount;
       player.addPlayer();
       player.updateCount(playerCount);
-      this.greetings.html("Hello " + player.name);
+      this.greetings.html("Hola " + player.name);
       this.greetings.position(300, 180);
     });
   }
@@ -45,7 +45,7 @@ class Form {
   }
   end() {
     if (player.rank >= 4) {
-      var reset = createButton("Reset");
+      var reset = createButton("Reiniciar");
       reset.position(750, 20);
       reset.mousePressed(() => {
         player.updateBikesAtEnd(0);
@@ -59,7 +59,7 @@ class Form {
     }
 
     this.greetings2.html(
-      "Congratulations " + player.name + " Your Rank is " + player.rank
+      "Felicidades " + player.name + " Tu posición es " + player.rank
     );
     this.greetings2.class("greeting");
     this.greetings2.position(300, 185);
